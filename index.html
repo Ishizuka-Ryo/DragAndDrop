@@ -1,31 +1,128 @@
 <!DOCTYPE html>
 <html lang="jp">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>todo</title>
-    <script src="./js/index.js"></script>
-</head>
-<body>
-    <div id="todo">
-        <h2>TODO</h2>
-        <form v-on:submit.prevent>
-            <input type="text">
-            <button v-on:click="addItem">追加する</button>
-        </form>
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="./js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.23.2/vuedraggable.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <!-- 要素の並び替え -->
+  <div id="app">
+    <div id="area01">
+      <draggable tag="div" :options="{group:'ITEMS'}">
+        <div class="ballA"></div>
+      </draggable>
     </div>
+
+    <div id="area02">
+      <draggable tag="div" :options="{group:'ITEMS'}">
+        <div class="ballB"></div>
+      </draggable>
+    </div>
+
+  </div>
+
+  <!-- 要素の並び替え配列を使用 -->
+  <div id="app02">
+    <draggable tag="ul" class="app-list" :options="{animation:300}">
+      <li v-for="item in items" :key="item" v-bind:style="[first,second,third]">{{item.greet}}</li>
+    </draggable>
+  </div>
+
+  <!-- テキストを変更 -->
+
+  <div id="app03">
+    <div class="item">
+      <input v-if="editObj==='content'" v-model="content" @keyup.enter="offEdit('content')" @blur="offEdit('content')" v-focus v-cloak name="content" id="content">
+      <p v-if="editObj!=='content'" @click="onEdit('content')" v-cloak>{{content}}</p>
+    </div>
+  </div>
+
+
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
 <script>
-    var app = new Vue({
-    el:'#todo',
-    methods:{
-      addItem:function(event){
-        alert();
+  // <!-- 要素の並び替え -->
+  const draggable = window['vuedraggable'];
+
+  var text = new Vue({
+    el: '#area01',
+    components: {
+      'draggable': draggable,
+    }
+  })
+
+  var text02 = new Vue({
+    el: '#area02',
+    components: {
+      'draggable': draggable,
+    }
+  })
+
+
+  // 要素並び変え配列を使用
+  var array = new Vue({
+    el: '#app02',
+    components: {
+      'draggable': draggable,
+    },
+    data: {
+      items: [{
+          greet: 'おはよう'
+        },
+        {
+          greet: 'こんにちは'
+        },
+        {
+          greet: 'こんばんわ'
+        }
+      ]
+      first:{
+        background:'red'
       }
     }
   })
+
+  // テキスト変更
+  Vue.directive('focus', {
+    inserted: function (el) {
+      el.focus()
+    }
+  })
+
+  new Vue({
+    el: "#app03",
+    data: {
+      content: "クリックしてみて",
+      editObj: "",
+      editVal: ""
+    },
+
+    methods: {
+      onEdit: function (OBJ) {
+        this.editObj = OBJ
+        this.editVal = this[OBJ]
+      },
+
+      offEdit: function (OBJ) {
+        this.editObj = ''
+        elem = document.getElementById(OBJ)
+
+        if (elem.value == "") {
+          this[OBJ] = this.editVal;
+        }
+      }
+    },
+  })
 </script>
+
 </html>
