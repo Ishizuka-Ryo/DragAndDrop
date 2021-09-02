@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+#app{
+    width: 1000px;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: flex;
+    .ballA{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        position: relative;
+        background-color: #50b8b1;
+      }
+      .ballB{
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        position: relative;
+        background-color: #000;
+      }
+    
+}
+
+  .app-list{
+      width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      li{
+          width: 25%;
+          border: solid 1px;
+          padding: 1em;
+          &:hover{
+            cursor: grab;
+          }
+      }
+      
+  }
+
+  #app03{
+      margin-top:5em;
+      .item{
+          width: 510px;
+          height: 50px;
+          margin: auto;
+          background: grey;
+          overflow-wrap: break-word;
+          input{
+              width: 100%;
+          }
+      }
+  }
+
