@@ -11,30 +11,29 @@
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.23.2/vuedraggable.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- jQuery UI -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 
 <body>
 
-  <!-- 要素の並び替え -->
-  <div id="app">
-    <div id="area01">
-      <draggable tag="div" :options="{group:'ITEMS'}">
-        <div class="ballA"></div>
-      </draggable>
-    </div>
+  <!-- ドラックアンドドロップ 範囲指定 -->
+<div id="jq-area" class="use-jq-area">
+<hello-world v-bind:style="box" class="box"></hello-world>
+<hello-world v-bind:style="box02" class="box"></hello-world>
+</div>
 
-    <div id="area02">
-      <draggable tag="div" :options="{group:'ITEMS'}">
-        <div class="ballB"></div>
-      </draggable>
-    </div>
 
-  </div>
+
 
   <!-- 要素の並び替え配列を使用 -->
   <div id="app02">
     <draggable tag="ul" class="app-list" :options="{animation:300}">
-      <li v-for="item in items" :key="item" v-bind:style="[first,second,third]">{{item.greet}}</li>
+      <li v-for="item in items" :key="item">{{item.greet}}</li>
     </draggable>
   </div>
 
@@ -42,7 +41,8 @@
 
   <div id="app03">
     <div class="item">
-      <input v-if="editObj==='content'" v-model="content" @keyup.enter="offEdit('content')" @blur="offEdit('content')" v-focus v-cloak name="content" id="content">
+      <input v-if="editObj==='content'" v-model="content" @keyup.enter="offEdit('content')" @blur="offEdit('content')"
+        v-focus v-cloak name="content" id="content">
       <p v-if="editObj!=='content'" @click="onEdit('content')" v-cloak>{{content}}</p>
     </div>
   </div>
@@ -51,22 +51,34 @@
 </body>
 
 <script>
-  // <!-- 要素の並び替え -->
   const draggable = window['vuedraggable'];
 
-  var text = new Vue({
-    el: '#area01',
-    components: {
-      'draggable': draggable,
-    }
-  })
 
-  var text02 = new Vue({
-    el: '#area02',
-    components: {
-      'draggable': draggable,
+Vue.component('hello-world',{
+  template : '<div>Hello World</div>'
+})
+
+var app = new Vue({
+  el: '#jq-area',
+  data: {
+  	box:{
+      width:'250px',
+      height:'150px',
+      background:'red'
+    },
+    box02:{
+      width:'250px',
+      height:'150px',
+      background:'blue'
     }
-  })
+  },
+  mounted:$(function(){
+    $('#jq-area').sortable();
+    $('#jq-area').disableSelection();
+   })
+})
+
+
 
 
   // 要素並び変え配列を使用

@@ -3,6 +3,17 @@
   padding: 0;
 }
 
+.use-jq-area {
+  width: 500px;
+  height: 300px;
+  border: solid 1px;
+  margin: auto;
+  margin-bottom: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 #app {
   width: 1000px;
   margin: auto;
