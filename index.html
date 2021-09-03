@@ -27,6 +27,10 @@
 <hello-world v-bind:style="box02" class="box"></hello-world>
 </div>
 
+<!-- ドラックアンドドロップの機能どこでもいける -->
+<div id="everywhere">
+  <p v-bind:style="everyplace">{{message}}</p>
+</div>
 
 
 
@@ -64,18 +68,38 @@ var app = new Vue({
   	box:{
       width:'250px',
       height:'150px',
-      background:'red'
+      background:'red',
+      padding:'1px',
+      margin: '3px 3px 3px 0'
     },
     box02:{
       width:'250px',
       height:'150px',
-      background:'blue'
+      background:'blue',
+      padding:'1px',
+      margin: '3px 3px 3px 0'
     }
   },
   mounted:$(function(){
     $('#jq-area').sortable();
     $('#jq-area').disableSelection();
    })
+})
+
+// どこでもいけるやつ
+var everyWhere = new Vue({
+  el:'#everywhere',
+  data:{
+    message:'どこにでもいける',
+    everyplace:{
+      width:'250px',
+      height:'150px',
+      background:'green'
+    }
+  },
+  mounted:$(function() {
+    $( "#everywhere" ).draggable();
+  } )
 })
 
 

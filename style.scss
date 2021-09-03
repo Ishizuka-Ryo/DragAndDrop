@@ -10,6 +10,9 @@
     margin: auto;
     margin-bottom: 2em;
     display: flex;
+    .box:hover{
+      cursor:grab;  
+    }
 }
 
 

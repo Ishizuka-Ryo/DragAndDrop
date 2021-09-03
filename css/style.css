@@ -14,6 +14,11 @@
   display: flex;
 }
 
+.use-jq-area .box:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
 #app {
   width: 1000px;
   margin: auto;
