@@ -1,3 +1,16 @@
+<!-- Mysqlに接続する -->
+<?php 
+$mysqli = new mysql('localhost','root','1234','draganddrop');
+$mysqli->set_charset('utf8');
+<!-- 並び順変更処理 -->
+if($_POST['order']){
+  <!-- ここで配列を[key:値]にしている -->
+  $data = json_encode($_POST['order'],true)
+  <!-- ここでキーと値を取り出す -->
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="jp">
 
@@ -50,6 +63,7 @@
       <p v-if="editObj!=='content'" @click="onEdit('content')" v-cloak>{{content}}</p>
     </div>
   </div>
+
 
 
 </body>
